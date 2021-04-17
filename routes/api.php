@@ -22,6 +22,9 @@ Route::get('temp', 'Api\V1\AuthController@temp');
 Route::group(['namespace' => 'Api\V1','prefix' => 'v1'], function(){
 
     Route::post('register', 'AuthController@register');
+    Route::post('login', 'AuthController@login');
+
     Route::get('temp', 'AuthController@temp');
+    Route::get('exceptionTest', 'AuthController@exceptionTest');
 
 });
