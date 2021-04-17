@@ -104,6 +104,25 @@ class AuthController extends BaseController
 
     }
 
+    public function logout() {
+      
+    
+        try {
+            
+            $user = Auth::user();
+
+            foreach ($user->tokens as $token) {
+                $token->revoke();
+                $token->delete();
+            }
+
+            return $this->sendResponse(" ", 'User logout successfully.', 200);
+
+        } catch (\Exception $exception) {
+            return $this->sendError('SERVER_ERROR ', $exception, 500);       
+        }
+    }
+
     public function exceptionTest(){
 
         try{

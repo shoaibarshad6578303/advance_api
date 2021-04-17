@@ -23,8 +23,12 @@ Route::group(['namespace' => 'Api\V1','prefix' => 'v1'], function(){
 
     Route::post('register', 'AuthController@register');
     Route::post('login', 'AuthController@login');
-
+  
     Route::get('temp', 'AuthController@temp');
     Route::get('exceptionTest', 'AuthController@exceptionTest');
 
+    Route::group(['middleware' => 'auth:api'], function () {
+
+        Route::get('logout', 'AuthController@logout');
+    });
 });
