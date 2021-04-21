@@ -55,7 +55,7 @@ class AuthController extends BaseController
 
         } catch (\Exception $exception) {
 
-            return $this->sendError('Error ', $exception, 500);       
+            return $this->sendError('Error ', $exception->getMessage(), 500);       
            
         }
       
@@ -98,7 +98,7 @@ class AuthController extends BaseController
 
         } catch (\Exception $exception) {
             
-            return $this->sendError('SERVER_ERROR ', $exception, 500);       
+            return $this->sendError('SERVER_ERROR ', $exception->getMessage(), 500);       
 
         }
 
@@ -108,7 +108,7 @@ class AuthController extends BaseController
       
     
         try {
-            
+
             $user = Auth::user();
 
             foreach ($user->tokens as $token) {
@@ -119,7 +119,7 @@ class AuthController extends BaseController
             return $this->sendResponse(" ", 'User logout successfully.', 200);
 
         } catch (\Exception $exception) {
-            return $this->sendError('SERVER_ERROR ', $exception, 500);       
+            return $this->sendError('SERVER_ERROR ', $exception->getMessage(), 500);       
         }
     }
 
@@ -127,13 +127,11 @@ class AuthController extends BaseController
 
         try{
 
-              User::where('email','abc1238812211s@gmail.com')->firstOrFail();
+              $user=User::where('email','abc1238812211s@gmail.com')->firstOrFail();
 
-        }catch(\Exception $ex){
-            // $error=$ex;
-            // return $error;       
-
-            return $this->sendError(['error'=>$ex]);       
+        }catch(\Exception $exception){
+           
+            return $exception->getMessage();            
    
         }
 
