@@ -7,7 +7,7 @@
         <title>Laravel</title>
         
         <!-- Fonts -->
-        {{-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> --}}
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;600&display=swap" rel="stylesheet">
         {{-- <link rel="stylesheet" href="{{ asset('css/intl-tel-input.css') }}" type="text/css" /> --}}
@@ -24,8 +24,8 @@
 
         <!-- Styles -->
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> --}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
         <style>
             html, body {
                 background-color: #fff;
@@ -101,7 +101,14 @@
                 </div>
                 <form action="{{url('phones')}}" method="post">
                     @csrf
-                    <input  id="phone" name="phone" type="tel">
+                    <input class="form-control" id="phone" name="phone"  type="tel">
+                    
+                    {{-- edit number --}}
+                    <input class="form-control" id="phone" name="phone" value="+447733312345" type="tel">
+
+                    {{-- <input id="phone" type="tel"> --}}
+                    {{-- <span id="valid-msg" class="hide">✓ Valid</span> --}}
+                    {{-- <span id="error-msg" class="hide"></span> --}}
                     <button type="submit">Submit</button>
                     {{-- <div class="form-group">
                         <label>phone</label>
@@ -121,12 +128,12 @@
             </div>
         </div>
         <script>
-            var input = document.querySelector("#phone");
+             var input =document.querySelector("#phone");
             window.intlTelInput(input, {
             //   allowDropdown: false,
             //   autoHideDialCode: false,
             //   autoPlaceholder: "off",
-              dropdownContainer: document.body,
+            //   dropdownContainer: document.body,
             //   excludeCountries: ["us"],
             //   formatOnDisplay: false,
             //   geoIpLookup: function(callback) {
@@ -136,23 +143,62 @@
             //     });
             //   },
               hiddenInput: "full_number",
-              initialCountry: "auto",
-              localizedCountries: { 'de': 'Deutschland' },
-              nationalMode: false,
-              onlyCountries: ['us', 'gb', 'ch', 'ca', 'do'],
-              placeholderNumberType: "MOBILE",
-              preferredCountries: ['cn', 'jp'],
+            //   initialCountry: "auto",
+            //   localizedCountries: { 'de': 'Deutschland' },
+            //   nationalMode: false,
+            //   onlyCountries: ['us', 'gb', 'ch', 'ca', 'do'],
+            //   placeholderNumberType: "MOBILE",
+            //   preferredCountries: ['cn', 'jp'],
               separateDialCode: true,
               utilsScript: "js/utils.js",
             });
 
-            console.log(input);
+            // console.log(input);
 
-            $("#phone" ).change(function(  ) {
-                // var intlNumber =$("#phone").intlTelInput("getSelectedCountryData").dialCode;
-                // console.log(intlNumber);
+            $("#iti__selected-flag" ).change(function(  ) {
+                console.log("hello");
+                var intlNumber =$(".iti__selected-dial-code").text();
+                console.log(intlNumber);
         //    $( "#log" ).html( "clicked: " + event.target.nodeName );
          });
-          </script>
+
+//          var input = document.querySelector("#phone"),
+//   errorMsg = document.querySelector("#error-msg"),
+//   validMsg = document.querySelector("#valid-msg");
+
+// // here, the index maps to the error code returned from getValidationError - see readme
+// var errorMap = ["Invalid number", "Invalid country code", "Too short", "Too long", "Invalid number"];
+
+// // initialise plugin
+// var iti = window.intlTelInput(input, {
+//   utilsScript: "../../build/js/utils.js?1613236686837"
+// });
+
+// var reset = function() {
+//   input.classList.remove("error");
+//   errorMsg.innerHTML = "";
+//   errorMsg.classList.add("hide");
+//   validMsg.classList.add("hide");
+// };
+
+// // on blur: validate
+// input.addEventListener('blur', function() {
+//   reset();
+//   if (input.value.trim()) {
+//     if (iti.isValidNumber()) {
+//       validMsg.classList.remove("hide");
+//     } else {
+//       input.classList.add("error");
+//       var errorCode = iti.getValidationError();
+//       errorMsg.innerHTML = errorMap[errorCode];
+//       errorMsg.classList.remove("hide");
+//     }
+//   }
+// });
+
+// // on keyup / change flag: reset
+// input.addEventListener('change', reset);
+// input.addEventListener('keyup', reset);
+  </script>
     </body>
 </html>
